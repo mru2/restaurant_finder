@@ -1,11 +1,3 @@
-console.log("Hello world");
-var restaurant_test = {
-  name: "Eat&Drink",
-  address: "34 rue Guersant"
-}
-console.log(restaurant_test)
-
-
 var restaurants = [
   {
     name: "Boulangerie",
@@ -28,14 +20,6 @@ var restaurants = [
     color: "black"
   }
 ]
-console.log(restaurants)
-
-function cubed (number) {
-  var squared = number*number
-  var cubed = squared*number
-  return cubed
-}
-console.log(cubed(7))
 
 function randomize (restaurants) {
   var index = Math.floor((Math.random() * restaurants.length));
@@ -67,37 +51,8 @@ var Restaurant = React.createClass({
       <Map url = {this.props.restaurant_to_show.address}/>
       </div>
     )
-
   }
-}
-
-)
-
-
-var Tag = React.createClass({
-  propTypes: {
-    color:React.PropTypes.string
-  },
-  render: function() {
-    var styli = {
-      color:this.props.color
-    }
-    return <div style={styli}>This color is: {this.props.color}</div>;
-  }
-});
-
-
-var Hello = React.createClass({
-  render: function() {
-    return (<div>
-
-    <p>Hello {this.props.name}</p>
-    <Tag color="red"/>
-    <Tag color="blue"/>
-    <Tag color="yellow"/>
-    </div>);
-  }
-});
+})
 
 var random_restaurant = randomize(restaurants)
 
@@ -105,4 +60,3 @@ ReactDOM.render(
   <Restaurant restaurant_to_show = {random_restaurant}/>,
   document.getElementById('container')
 );
-<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10494.654474656865!2d2.2907058!3d48.8836888!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8d9c31adc67a4a0b!2sEat&#39;n+Drink!5e0!3m2!1sfr!2sfr!4v1476880864693" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
