@@ -1,3 +1,4 @@
+// Data
 var restaurants = [
   {
     name: "Boulangerie",
@@ -21,18 +22,20 @@ var restaurants = [
   }
 ]
 
+// Business logic
 function randomize (restaurants) {
   var index = Math.floor((Math.random() * restaurants.length));
   return restaurants[index]
 }
 
+// Visual components : props -> html
 var Map = React.createClass({
   propTypes: {
     url: React.PropTypes.string
   },
   render: function() {
     return (
-      <iframe src={this.props.url} width="600" height="450" frameBorder="0" allowFullScreen></iframe>
+      <iframe src={this.props.url} width="100%" height="500" frameBorder="0" allowFullScreen></iframe>
     )
   }
 })
@@ -47,16 +50,41 @@ var Restaurant = React.createClass({
     }
     return (
       <div>
-      <h1 style = {title_style}>{this.props.restaurant_to_show.name}</h1>
-      <Map url = {this.props.restaurant_to_show.address}/>
+        <h1 style = {title_style}>
+          {this.props.restaurant_to_show.name}
+        </h1>
+        <Map url = {this.props.restaurant_to_show.address}/>
       </div>
     )
   }
 })
 
-var random_restaurant = randomize(restaurants)
+// Orchestration components
+// - choose which restaurant to display
+// State : current_restaurant
+var Randomizer = React.createClass({
+  getInitialState: function() {
+    return {
+      current_restaurant: randomize(restaurants)
+    }
+  },
+  // To call when we want to change the restaurant
+  refresh: function() {
+    this.setState({
+      current_restaurant: randomize(restaurants)
+    })
+  },
+  render: function() {
+    return (
+      <div>
+        <Restaurant restaurant_to_show={this.state.current_restaurant}/>
+        <button onClick={this.refresh}>Un autre</button>
+      </div>
+    )
+  }
+})
 
 ReactDOM.render(
-  <Restaurant restaurant_to_show = {random_restaurant}/>,
+  <Randomizer/>,
   document.getElementById('container')
 );
